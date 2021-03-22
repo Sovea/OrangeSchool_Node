@@ -1,0 +1,30 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/api/model/cart.js"
+    ],
+    "names": [
+        "module",
+        "exports",
+        "think",
+        "Model",
+        "getGoodsList",
+        "userId",
+        "goodsList",
+        "model",
+        "where",
+        "user_id",
+        "session_id",
+        "select",
+        "getCheckedGoodsList",
+        "checked",
+        "clearBuyGoods",
+        "$res",
+        "delete"
+    ],
+    "mappings": ";;AAAAA,OAAOC,OAAP,GAAiB,cAAcC,MAAMC,KAApB,CAA0B;AACzC;;;;AAIMC,cAAN,CAAmBC,MAAnB,EAA2B;AAAA;;AAAA;AACzB,YAAMC,YAAY,MAAM,MAAKC,KAAL,CAAW,MAAX,EAAmBC,KAAnB,CAAyB,EAACC,SAASJ,MAAV,EAAkBK,YAAY,CAA9B,EAAzB,EAA2DC,MAA3D,EAAxB;AACA,aAAOL,SAAP;AAFyB;AAG1B;;AAED;;;;AAIMM,qBAAN,CAA0BP,MAA1B,EAAkC;AAAA;;AAAA;AAChC,YAAMC,YAAY,MAAM,OAAKC,KAAL,CAAW,MAAX,EAAmBC,KAAnB,CAAyB,EAACC,SAASJ,MAAV,EAAkBK,YAAY,CAA9B,EAAiCG,SAAS,CAA1C,EAAzB,EAAuEF,MAAvE,EAAxB;AACA,aAAOL,SAAP;AAFgC;AAGjC;;AAED;;;;AAIMQ,eAAN,CAAoBT,MAApB,EAA4B;AAAA;;AAAA;AAC1B,YAAMU,OAAO,MAAM,OAAKR,KAAL,CAAW,MAAX,EAAmBC,KAAnB,CAAyB,EAACC,SAASJ,MAAV,EAAkBK,YAAY,CAA9B,EAAiCG,SAAS,CAA1C,EAAzB,EAAuEG,MAAvE,EAAnB;AACA,aAAOD,IAAP;AAF0B;AAG3B;AA1BwC,CAA3C",
+    "file": "../../../src/api/model/cart.js",
+    "sourcesContent": [
+        "module.exports = class extends think.Model {\r\n  /**\r\n   * 获取购物车的商品\r\n   * @returns {Promise.<*>}\r\n   */\r\n  async getGoodsList(userId) {\r\n    const goodsList = await this.model('cart').where({user_id: userId, session_id: 1}).select();\r\n    return goodsList;\r\n  }\r\n\r\n  /**\r\n   * 获取购物车的选中的商品\r\n   * @returns {Promise.<*>}\r\n   */\r\n  async getCheckedGoodsList(userId) {\r\n    const goodsList = await this.model('cart').where({user_id: userId, session_id: 1, checked: 1}).select();\r\n    return goodsList;\r\n  }\r\n\r\n  /**\r\n   * 清空已购买的商品\r\n   * @returns {Promise.<*>}\r\n   */\r\n  async clearBuyGoods(userId) {\r\n    const $res = await this.model('cart').where({user_id: userId, session_id: 1, checked: 1}).delete();\r\n    return $res;\r\n  }\r\n};\r\n"
+    ]
+}

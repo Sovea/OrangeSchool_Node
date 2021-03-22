@@ -1,0 +1,39 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/api/controller/base.js"
+    ],
+    "names": [
+        "module",
+        "exports",
+        "think",
+        "Controller",
+        "__before",
+        "ctx",
+        "state",
+        "token",
+        "header",
+        "tokenSerivce",
+        "service",
+        "userId",
+        "getUserId",
+        "publicController",
+        "config",
+        "publicAction",
+        "controllerAction",
+        "controller",
+        "action",
+        "includes",
+        "fail",
+        "getTime",
+        "parseInt",
+        "Date",
+        "now",
+        "getLoginUserId"
+    ],
+    "mappings": ";;AAAAA,OAAOC,OAAP,GAAiB,cAAcC,MAAMC,UAApB,CAA+B;AACxCC,UAAN,GAAiB;AAAA;;AAAA;AACf;AACA,YAAKC,GAAL,CAASC,KAAT,CAAeC,KAAf,GAAuB,MAAKF,GAAL,CAASG,MAAT,CAAgB,kBAAhB,KAAuC,EAA9D;AACA,YAAMC,eAAeP,MAAMQ,OAAN,CAAc,OAAd,EAAuB,KAAvB,CAArB;AACA,YAAKL,GAAL,CAASC,KAAT,CAAeK,MAAf,GAAwB,MAAMF,aAAaG,SAAb,CAAuB,MAAKP,GAAL,CAASC,KAAT,CAAeC,KAAtC,CAA9B;;AAEA,YAAMM,mBAAmB,MAAKC,MAAL,CAAY,kBAAZ,CAAzB;AACA,YAAMC,eAAe,MAAKD,MAAL,CAAY,cAAZ,CAArB;AACA;AACA,YAAME,mBAAmB,MAAKX,GAAL,CAASY,UAAT,GAAsB,GAAtB,GAA4B,MAAKZ,GAAL,CAASa,MAA9D;AACA,UAAI,CAACL,iBAAiBM,QAAjB,CAA0B,MAAKd,GAAL,CAASY,UAAnC,CAAD,IAAmD,CAACF,aAAaI,QAAb,CAAsBH,gBAAtB,CAAxD,EAAiG;AAC/F,YAAI,MAAKX,GAAL,CAASC,KAAT,CAAeK,MAAf,IAAyB,CAA7B,EAAgC;AAC9B,iBAAO,MAAKS,IAAL,CAAU,GAAV,EAAe,MAAf,CAAP;AACD;AACF;AAdc;AAehB;;AAED;;;;AAIAC,YAAU;AACR,WAAOC,SAASC,KAAKC,GAAL,KAAa,IAAtB,CAAP;AACD;;AAED;;;;AAIAC,mBAAiB;AACf,WAAO,KAAKpB,GAAL,CAASC,KAAT,CAAeK,MAAtB;AACD;AAhC6C,CAAhD",
+    "file": "../../../src/api/controller/base.js",
+    "sourcesContent": [
+        "module.exports = class extends think.Controller {\r\n  async __before() {\r\n    // 根据token值获取用户id\r\n    this.ctx.state.token = this.ctx.header['x-nideshop-token'] || '';\r\n    const tokenSerivce = think.service('token', 'api');\r\n    this.ctx.state.userId = await tokenSerivce.getUserId(this.ctx.state.token);\r\n\r\n    const publicController = this.config('publicController');\r\n    const publicAction = this.config('publicAction');\r\n    // 如果为非公开，则验证用户是否登录\r\n    const controllerAction = this.ctx.controller + '/' + this.ctx.action;\r\n    if (!publicController.includes(this.ctx.controller) && !publicAction.includes(controllerAction)) {\r\n      if (this.ctx.state.userId <= 0) {\r\n        return this.fail(401, '请先登录');\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * 获取时间戳\r\n   * @returns {Number}\r\n   */\r\n  getTime() {\r\n    return parseInt(Date.now() / 1000);\r\n  }\r\n\r\n  /**\r\n   * 获取当前登录用户的id\r\n   * @returns {*}\r\n   */\r\n  getLoginUserId() {\r\n    return this.ctx.state.userId;\r\n  }\r\n};\r\n"
+    ]
+}

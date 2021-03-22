@@ -1,0 +1,35 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/api/controller/catalog.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "indexAction",
+        "categoryId",
+        "get",
+        "model",
+        "data",
+        "limit",
+        "where",
+        "parent_id",
+        "select",
+        "currentCategory",
+        "find",
+        "think",
+        "isEmpty",
+        "id",
+        "subCategoryList",
+        "success",
+        "categoryList",
+        "currentAction"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;;AAEAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAClC;;;;AAIMI,aAAN,GAAoB;AAAA;;AAAA;AAClB,YAAMC,aAAa,MAAKC,GAAL,CAAS,IAAT,CAAnB;;AAEA,YAAMC,QAAQ,MAAKA,KAAL,CAAW,UAAX,CAAd;AACA,YAAMC,OAAO,MAAMD,MAAME,KAAN,CAAY,EAAZ,EAAgBC,KAAhB,CAAsB,EAACC,WAAW,CAAZ,EAAtB,EAAsCC,MAAtC,EAAnB;;AAEA,UAAIC,kBAAkB,IAAtB;AACA,UAAIR,UAAJ,EAAgB;AACdQ,0BAAkB,MAAMN,MAAMG,KAAN,CAAY,EAAC,MAAML,UAAP,EAAZ,EAAgCS,IAAhC,EAAxB;AACD;;AAED,UAAIC,MAAMC,OAAN,CAAcH,eAAd,CAAJ,EAAoC;AAClCA,0BAAkBL,KAAK,CAAL,CAAlB;AACD;;AAED;AACA,UAAIK,mBAAmBA,gBAAgBI,EAAvC,EAA2C;AACzCJ,wBAAgBK,eAAhB,GAAkC,MAAMX,MAAMG,KAAN,CAAY,EAAC,aAAaG,gBAAgBI,EAA9B,EAAZ,EAA+CL,MAA/C,EAAxC;AACD;;AAED,aAAO,MAAKO,OAAL,CAAa;AAClBC,sBAAcZ,IADI;AAElBK,yBAAiBA;AAFC,OAAb,CAAP;AApBkB;AAwBnB;;AAEKQ,eAAN,GAAsB;AAAA;;AAAA;AACpB,YAAMhB,aAAa,OAAKC,GAAL,CAAS,IAAT,CAAnB;AACA,YAAMC,QAAQ,OAAKA,KAAL,CAAW,UAAX,CAAd;;AAEA,UAAIM,kBAAkB,IAAtB;AACA,UAAIR,UAAJ,EAAgB;AACdQ,0BAAkB,MAAMN,MAAMG,KAAN,CAAY,EAAC,MAAML,UAAP,EAAZ,EAAgCS,IAAhC,EAAxB;AACD;AACD;AACA,UAAID,mBAAmBA,gBAAgBI,EAAvC,EAA2C;AACzCJ,wBAAgBK,eAAhB,GAAkC,MAAMX,MAAMG,KAAN,CAAY,EAAC,aAAaG,gBAAgBI,EAA9B,EAAZ,EAA+CL,MAA/C,EAAxC;AACD;;AAED,aAAO,OAAKO,OAAL,CAAa;AAClBN,yBAAiBA;AADC,OAAb,CAAP;AAboB;AAgBrB;AA/CiC,CAApC",
+    "file": "../../../src/api/controller/catalog.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\n\r\nmodule.exports = class extends Base {\r\n  /**\r\n   * 获取分类栏目数据\r\n   * @returns {Promise.<Promise|void|PreventPromise>}\r\n   */\r\n  async indexAction() {\r\n    const categoryId = this.get('id');\r\n\r\n    const model = this.model('category');\r\n    const data = await model.limit(12).where({parent_id: 0}).select();\r\n\r\n    let currentCategory = null;\r\n    if (categoryId) {\r\n      currentCategory = await model.where({'id': categoryId}).find();\r\n    }\r\n\r\n    if (think.isEmpty(currentCategory)) {\r\n      currentCategory = data[0];\r\n    }\r\n\r\n    // 获取子分类数据\r\n    if (currentCategory && currentCategory.id) {\r\n      currentCategory.subCategoryList = await model.where({'parent_id': currentCategory.id}).select();\r\n    }\r\n\r\n    return this.success({\r\n      categoryList: data,\r\n      currentCategory: currentCategory\r\n    });\r\n  }\r\n\r\n  async currentAction() {\r\n    const categoryId = this.get('id');\r\n    const model = this.model('category');\r\n\r\n    let currentCategory = null;\r\n    if (categoryId) {\r\n      currentCategory = await model.where({'id': categoryId}).find();\r\n    }\r\n    // 获取子分类数据\r\n    if (currentCategory && currentCategory.id) {\r\n      currentCategory.subCategoryList = await model.where({'parent_id': currentCategory.id}).select();\r\n    }\r\n\r\n    return this.success({\r\n      currentCategory: currentCategory\r\n    });\r\n  }\r\n};\r\n"
+    ]
+}

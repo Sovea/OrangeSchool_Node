@@ -1,0 +1,53 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/api/controller/footprint.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "moment",
+        "_",
+        "module",
+        "exports",
+        "deleteAction",
+        "footprintId",
+        "post",
+        "userId",
+        "getLoginUserId",
+        "goods",
+        "model",
+        "where",
+        "user_id",
+        "id",
+        "find",
+        "goods_id",
+        "delete",
+        "success",
+        "listAction",
+        "list",
+        "field",
+        "alias",
+        "join",
+        "table",
+        "as",
+        "on",
+        "order",
+        "countSelect",
+        "data",
+        "map",
+        "uniqBy",
+        "item",
+        "add_time",
+        "unix",
+        "format",
+        "subtract",
+        "groupBy",
+        "values"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;AACA,MAAMC,SAASD,QAAQ,QAAR,CAAf;AACA,MAAME,IAAIF,QAAQ,QAAR,CAAV;;AAEAG,OAAOC,OAAP,GAAiB,cAAcL,IAAd,CAAmB;AAClC;;;;AAIMM,cAAN,GAAqB;AAAA;;AAAA;AACnB,YAAMC,cAAc,MAAKC,IAAL,CAAU,aAAV,CAApB;AACA,YAAMC,SAAS,MAAKC,cAAL,EAAf;AACA;AACA,YAAMC,QAAQ,MAAM,MAAKC,KAAL,CAAW,WAAX,EAAwBC,KAAxB,CAA8B,EAACC,SAASL,MAAV,EAAkBM,IAAIR,WAAtB,EAA9B,EAAkES,IAAlE,EAApB;AACA,YAAM,MAAKJ,KAAL,CAAW,WAAX,EAAwBC,KAAxB,CAA8B,EAACC,SAASL,MAAV,EAAkBQ,UAAUN,MAAMM,QAAlC,EAA9B,EAA2EC,MAA3E,EAAN;;AAEA,aAAO,MAAKC,OAAL,CAAa,MAAb,CAAP;AAPmB;AAQpB;;AAED;;;;AAIMC,YAAN,GAAmB;AAAA;;AAAA;AACjB,YAAMC,OAAO,MAAM,OAAKT,KAAL,CAAW,WAAX,EAChBU,KADgB,CACV,CAAC,KAAD,EAAQ,QAAR,EAAkB,gBAAlB,EAAoC,eAApC,EAAqD,gBAArD,CADU,EAEhBC,KAFgB,CAEV,GAFU,EAGhBC,IAHgB,CAGX;AACJC,eAAO,OADH;AAEJD,cAAM,MAFF;AAGJE,YAAI,GAHA;AAIJC,YAAI,CAAC,YAAD,EAAe,MAAf;AAJA,OAHW,EAQdd,KARc,CAQR,EAACC,SAAS,OAAKJ,cAAL,EAAV,EARQ,EAShBkB,KATgB,CASV,EAACb,IAAI,MAAL,EATU,EAUhBc,WAVgB,EAAnB;;AAYA;AACAR,WAAKS,IAAL,GAAY3B,EAAE4B,GAAF,CAAM5B,EAAE6B,MAAF,CAASX,KAAKS,IAAd,EAAoB,UAASG,IAAT,EAAe;AACnD,eAAOA,KAAKhB,QAAZ;AACD,OAFiB,CAAN,EAER,UAACgB,IAAD,EAAU;AACZA,aAAKC,QAAL,GAAgBhC,OAAOiC,IAAP,CAAYF,KAAKC,QAAjB,EAA2BE,MAA3B,CAAkC,YAAlC,CAAhB;AACA;AACA,YAAIlC,SAASkC,MAAT,CAAgB,YAAhB,MAAkCH,KAAKC,QAA3C,EAAqD;AACnDD,eAAKC,QAAL,GAAgB,IAAhB;AACD;AACD;AACA,YAAIhC,SAASmC,QAAT,CAAkB,CAAlB,EAAqB,MAArB,EAA6BD,MAA7B,CAAoC,YAApC,MAAsDH,KAAKC,QAA/D,EAAyE;AACvED,eAAKC,QAAL,GAAgB,IAAhB;AACD;AACD;AACA,YAAIhC,SAASmC,QAAT,CAAkB,CAAlB,EAAqB,MAArB,EAA6BD,MAA7B,CAAoC,YAApC,MAAsDH,KAAKC,QAA/D,EAAyE;AACvED,eAAKC,QAAL,GAAgB,IAAhB;AACD;AACD,eAAOD,IAAP;AACD,OAjBW,CAAZ;;AAmBAZ,WAAKS,IAAL,GAAY3B,EAAEmC,OAAF,CAAUjB,KAAKS,IAAf,EAAqB,UAASG,IAAT,EAAe;AAC9C,eAAOA,KAAKC,QAAZ;AACD,OAFW,CAAZ;AAGAb,WAAKS,IAAL,GAAY3B,EAAEoC,MAAF,CAASlB,KAAKS,IAAd,CAAZ;;AAEA,aAAO,OAAKX,OAAL,CAAaE,IAAb,CAAP;AAtCiB;AAuClB;AA1DiC,CAApC",
+    "file": "../../../src/api/controller/footprint.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\nconst moment = require('moment');\r\nconst _ = require('lodash');\r\n\r\nmodule.exports = class extends Base {\r\n  /**\r\n   *\r\n   * @returns {Promise<void|Promise|PreventPromise>}\r\n   */\r\n  async deleteAction() {\r\n    const footprintId = this.post('footprintId');\r\n    const userId = this.getLoginUserId();\r\n    // 删除当天的同一个商品的足迹\r\n    const goods = await this.model('footprint').where({user_id: userId, id: footprintId}).find();\r\n    await this.model('footprint').where({user_id: userId, goods_id: goods.goods_id}).delete();\r\n\r\n    return this.success('删除成功');\r\n  }\r\n\r\n  /**\r\n   * list action\r\n   * @return {Promise} []\r\n   */\r\n  async listAction() {\r\n    const list = await this.model('footprint')\r\n      .field(['f.*', 'g.name', 'g.list_pic_url', 'g.goods_brief', 'g.retail_price'])\r\n      .alias('f')\r\n      .join({\r\n        table: 'goods',\r\n        join: 'left',\r\n        as: 'g',\r\n        on: ['f.goods_id', 'g.id']\r\n      }).where({user_id: this.getLoginUserId()})\r\n      .order({id: 'desc'})\r\n      .countSelect();\r\n\r\n    // 去重、格式化日期、按天分组\r\n    list.data = _.map(_.uniqBy(list.data, function(item) {\r\n      return item.goods_id;\r\n    }), (item) => {\r\n      item.add_time = moment.unix(item.add_time).format('YYYY-MM-DD');\r\n      // 今天\r\n      if (moment().format('YYYY-MM-DD') === item.add_time) {\r\n        item.add_time = '今天';\r\n      }\r\n      // 昨天\r\n      if (moment().subtract(1, 'days').format('YYYY-MM-DD') === item.add_time) {\r\n        item.add_time = '昨天';\r\n      }\r\n      // 前天\r\n      if (moment().subtract(2, 'days').format('YYYY-MM-DD') === item.add_time) {\r\n        item.add_time = '前天';\r\n      }\r\n      return item;\r\n    });\r\n\r\n    list.data = _.groupBy(list.data, function(item) {\r\n      return item.add_time;\r\n    });\r\n    list.data = _.values(list.data);\r\n\r\n    return this.success(list);\r\n  }\r\n};\r\n"
+    ]
+}

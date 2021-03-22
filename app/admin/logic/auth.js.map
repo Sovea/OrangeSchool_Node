@@ -1,0 +1,24 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/admin/logic/auth.js"
+    ],
+    "names": [
+        "module",
+        "exports",
+        "think",
+        "Logic",
+        "loginAction",
+        "allowMethods",
+        "rules",
+        "username",
+        "required",
+        "string",
+        "password"
+    ],
+    "mappings": "AAAAA,OAAOC,OAAP,GAAiB,cAAcC,MAAMC,KAApB,CAA0B;AACzCC,gBAAc;AACZ,SAAKC,YAAL,GAAoB,MAApB;AACA,SAAKC,KAAL,GAAa;AACXC,gBAAU,EAAEC,UAAU,IAAZ,EAAkBC,QAAQ,IAA1B,EADC;AAEXC,gBAAU,EAAEF,UAAU,IAAZ,EAAkBC,QAAQ,IAA1B;AAFC,KAAb;AAID;AAPwC,CAA3C",
+    "file": "../../../src/admin/logic/auth.js",
+    "sourcesContent": [
+        "module.exports = class extends think.Logic {\r\n  loginAction() {\r\n    this.allowMethods = 'post';\r\n    this.rules = {\r\n      username: { required: true, string: true },\r\n      password: { required: true, string: true }\r\n    };\r\n  }\r\n};\r\n"
+    ]
+}

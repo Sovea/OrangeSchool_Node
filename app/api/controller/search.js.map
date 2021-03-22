@@ -1,0 +1,39 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/api/controller/search.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "module",
+        "exports",
+        "indexAction",
+        "defaultKeyword",
+        "model",
+        "where",
+        "is_default",
+        "limit",
+        "find",
+        "hotKeywordList",
+        "distinct",
+        "field",
+        "select",
+        "historyKeywordList",
+        "user_id",
+        "getLoginUserId",
+        "getField",
+        "success",
+        "helperAction",
+        "keyword",
+        "get",
+        "keywords",
+        "clearhistoryAction",
+        "delete"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;;AAEAC,OAAOC,OAAP,GAAiB,cAAcH,IAAd,CAAmB;AAC5BI,aAAN,GAAoB;AAAA;;AAAA;AAClB;AACA,YAAMC,iBAAiB,MAAM,MAAKC,KAAL,CAAW,UAAX,EAAuBC,KAAvB,CAA6B,EAAEC,YAAY,CAAd,EAA7B,EAAgDC,KAAhD,CAAsD,CAAtD,EAAyDC,IAAzD,EAA7B;AACA;AACA,YAAMC,iBAAiB,MAAM,MAAKL,KAAL,CAAW,UAAX,EAAuBM,QAAvB,CAAgC,SAAhC,EAA2CC,KAA3C,CAAiD,CAAC,SAAD,EAAY,QAAZ,CAAjD,EAAwEJ,KAAxE,CAA8E,EAA9E,EAAkFK,MAAlF,EAA7B;AACA,YAAMC,qBAAqB,MAAM,MAAKT,KAAL,CAAW,gBAAX,EAA6BM,QAA7B,CAAsC,SAAtC,EAAiDL,KAAjD,CAAuD,EAAES,SAAS,MAAKC,cAAL,EAAX,EAAvD,EAA2FR,KAA3F,CAAiG,EAAjG,EAAqGS,QAArG,CAA8G,SAA9G,CAAjC;;AAEA,aAAO,MAAKC,OAAL,CAAa;AAClBd,wBAAgBA,cADE;AAElBU,4BAAoBA,kBAFF;AAGlBJ,wBAAgBA;AAHE,OAAb,CAAP;AAPkB;AAYnB;;AAEKS,cAAN,GAAqB;AAAA;;AAAA;AACnB,YAAMC,UAAU,OAAKC,GAAL,CAAS,SAAT,CAAhB;AACA,YAAMC,WAAW,MAAM,OAAKjB,KAAL,CAAW,UAAX,EAAuBM,QAAvB,CAAgC,SAAhC,EAA2CL,KAA3C,CAAiD,EAAEc,SAAS,CAAC,MAAD,EAASA,UAAU,GAAnB,CAAX,EAAjD,EAAuFH,QAAvF,CAAgG,SAAhG,EAA2G,EAA3G,CAAvB;AACA,aAAO,OAAKC,OAAL,CAAaI,QAAb,CAAP;AAHmB;AAIpB;;AAEKC,oBAAN,GAA2B;AAAA;;AAAA;AACzB,YAAM,OAAKlB,KAAL,CAAW,gBAAX,EAA6BC,KAA7B,CAAmC,EAAES,SAAS,OAAKC,cAAL,EAAX,EAAnC,EAAuEQ,MAAvE,EAAN;AACA,aAAO,OAAKN,OAAL,EAAP;AAFyB;AAG1B;AAxBiC,CAApC",
+    "file": "../../../src/api/controller/search.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\n\r\nmodule.exports = class extends Base {\r\n  async indexAction() {\r\n    // 取出输入框默认的关键词\r\n    const defaultKeyword = await this.model('keywords').where({ is_default: 1 }).limit(1).find();\r\n    // 取出热闹关键词\r\n    const hotKeywordList = await this.model('keywords').distinct('keyword').field(['keyword', 'is_hot']).limit(10).select();\r\n    const historyKeywordList = await this.model('search_history').distinct('keyword').where({ user_id: this.getLoginUserId() }).limit(10).getField('keyword');\r\n\r\n    return this.success({\r\n      defaultKeyword: defaultKeyword,\r\n      historyKeywordList: historyKeywordList,\r\n      hotKeywordList: hotKeywordList\r\n    });\r\n  }\r\n\r\n  async helperAction() {\r\n    const keyword = this.get('keyword');\r\n    const keywords = await this.model('keywords').distinct('keyword').where({ keyword: ['like', keyword + '%'] }).getField('keyword', 10);\r\n    return this.success(keywords);\r\n  }\r\n\r\n  async clearhistoryAction() {\r\n    await this.model('search_history').where({ user_id: this.getLoginUserId() }).delete();\r\n    return this.success();\r\n  }\r\n};\r\n"
+    ]
+}

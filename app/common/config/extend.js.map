@@ -1,0 +1,20 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/extend.js"
+    ],
+    "names": [
+        "model",
+        "require",
+        "cache",
+        "module",
+        "exports",
+        "think",
+        "app"
+    ],
+    "mappings": "AAAA,MAAMA,QAAQC,QAAQ,aAAR,CAAd;AACA,MAAMC,QAAQD,QAAQ,aAAR,CAAd;;AAEAE,OAAOC,OAAP,GAAiB,CACfJ,MAAMK,MAAMC,GAAZ,CADe,EAEfJ,KAFe,CAAjB",
+    "file": "../../../src/common/config/extend.js",
+    "sourcesContent": [
+        "const model = require('think-model');\r\nconst cache = require('think-cache');\r\n\r\nmodule.exports = [\r\n  model(think.app),\r\n  cache\r\n];\r\n"
+    ]
+}

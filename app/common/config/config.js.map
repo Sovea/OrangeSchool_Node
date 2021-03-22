@@ -1,0 +1,37 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/common/config/config.js"
+    ],
+    "names": [
+        "https",
+        "require",
+        "fs",
+        "options",
+        "app",
+        "callback",
+        "port",
+        "host",
+        "think",
+        "httpsServer",
+        "createServer",
+        "listen",
+        "module",
+        "exports",
+        "default_module",
+        "weixin",
+        "appid",
+        "secret",
+        "mch_id",
+        "partner_key",
+        "notify_url",
+        "express",
+        "appkey",
+        "request_url"
+    ],
+    "mappings": "AAAA;AACA,IAAIA,QAAQC,QAAQ,OAAR,CAAZ;AACA,IAAIC,KAAKD,QAAQ,IAAR,CAAT;AACA,IAAIE,UAAU;AACZ;AACA;AAFY,CAAd;AAIE,MAAMC,MAAM,CAACC,QAAD,EAAWC,IAAX,EAAgBC,IAAhB,EAAsBC,KAAtB,KAA+B;AACzC,MAAIC,cAAcT,MAAMU,YAAN,CAAmBP,OAAnB,EAA2BE,QAA3B,CAAlB;AACAI,cAAYE,MAAZ,CAAmB,IAAnB,EAAwB,SAAxB;AACA,SAAOF,WAAP;AACD,CAJD;;AAMFG,OAAOC,OAAP,GAAiB;AACfC,kBAAgB,KADD;AAEfJ,gBAAaN,GAFE;AAGfE,QAAK,IAHU;AAIfC,QAAK,eAJU;AAKfQ,UAAQ;AACNC,WAAO,oBADD,EACuB;AAC7BC,YAAQ,kCAFF,EAEsC;AAC5CC,YAAQ,EAHF,EAGM;AACZC,iBAAa,EAJP,EAIW;AACjBC,gBAAY,EALN,CAKS;AALT,GALO;AAYfC,WAAS;AACP;AACAL,WAAO,EAFA,EAEI;AACXM,YAAQ,EAHD,EAGK;AACZC,iBAAa;AAJN;AAZM,CAAjB",
+    "file": "../../../src/common/config/config.js",
+    "sourcesContent": [
+        "// default config\r\nvar https = require('https');\r\nvar fs = require('fs');\r\nvar options = {\r\n  // key:fs.readFileSync('/etc/apache2/ssl/Nginx/4760083_www.sparrowoo.top.key','utf8'),\r\n  // cert:fs.readFileSync('/etc/apache2/ssl/Nginx/4760083_www.sparrowoo.top.pem','utf8')\r\n  }\r\n  const app = (callback, port,host, think) =>{\r\n    var httpsServer = https.createServer(options,callback);\r\n    httpsServer.listen(8080,\"0.0.0.0\");\r\n    return httpsServer;\r\n  }\r\n\r\nmodule.exports = {\r\n  default_module: 'api',\r\n  createServer:app,\r\n  port:8080,\r\n  host:\"125.64.17.163\",\r\n  weixin: {\r\n    appid: 'wx99644281051e1e4c', // 小程序 appid\r\n    secret: '9b30b458f12ba8faeffa1a4d2a85384f', // 小程序密钥\r\n    mch_id: '', // 商户帐号ID\r\n    partner_key: '', // 微信支付密钥\r\n    notify_url: '' // 微信异步通知，例：https://www.nideshop.com/api/pay/notify\r\n  },\r\n  express: {\r\n    // 快递物流信息查询使用的是快递鸟接口，申请地址：http://www.kdniao.com/\r\n    appid: '', // 对应快递鸟用户后台 用户ID\r\n    appkey: '', // 对应快递鸟用户后台 API key\r\n    request_url: 'http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx'\r\n  }\r\n};\r\n"
+    ]
+}

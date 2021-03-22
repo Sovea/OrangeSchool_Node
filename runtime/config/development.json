@@ -1,0 +1,239 @@
+{
+  "admin": {
+    "port": 8360,
+    "workers": 0,
+    "stickyCluster": false,
+    "startServerTimeout": 3000,
+    "reloadSignal": "SIGUSR2",
+    "processKillTimeout": 10000,
+    "jsonpCallbackField": "callback",
+    "jsonContentType": "application/json",
+    "jsonpContentType": "application/javascript",
+    "errnoField": "errno",
+    "errmsgField": "errmsg",
+    "defaultErrno": 1000,
+    "validateDefaultErrno": 1001,
+    "default_module": "api",
+    "host": "125.64.17.163",
+    "weixin": {
+      "appid": "wx99644281051e1e4c",
+      "secret": "9b30b458f12ba8faeffa1a4d2a85384f",
+      "mch_id": "",
+      "partner_key": "",
+      "notify_url": ""
+    },
+    "express": {
+      "appid": "",
+      "appkey": "",
+      "request_url": "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"
+    },
+    "cache": {
+      "type": "file",
+      "file": {
+        "timeout": 86400000,
+        "cachePath": "/home/fangzhiyang/spovea/project/WeiXin_miniprogram/nideshop_api/runtime/cache",
+        "pathDepth": 1,
+        "gcInterval": 86400000
+      }
+    },
+    "model": {
+      "type": "mysql",
+      "mysql": {
+        "logConnect": true,
+        "logSql": true,
+        "database": "nideshop",
+        "prefix": "nideshop_",
+        "encoding": "utf8mb4",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "user": "fangzhiyang",
+        "password": "L@vescu2021",
+        "dateStrings": true,
+        "insecureAuth": true
+      }
+    },
+    "logger": {
+      "type": "console",
+      "console": {},
+      "file": {
+        "backups": 10,
+        "absolute": true,
+        "maxLogSize": 51200,
+        "filename": "/home/fangzhiyang/spovea/project/WeiXin_miniprogram/nideshop_api/logs/app.log"
+      },
+      "dateFile": {
+        "level": "ALL",
+        "absolute": true,
+        "pattern": "-yyyy-MM-dd",
+        "alwaysIncludePattern": true,
+        "filename": "/home/fangzhiyang/spovea/project/WeiXin_miniprogram/nideshop_api/logs/app.log"
+      }
+    }
+  },
+  "api": {
+    "port": 8360,
+    "workers": 0,
+    "stickyCluster": false,
+    "startServerTimeout": 3000,
+    "reloadSignal": "SIGUSR2",
+    "processKillTimeout": 10000,
+    "jsonpCallbackField": "callback",
+    "jsonContentType": "application/json",
+    "jsonpContentType": "application/javascript",
+    "errnoField": "errno",
+    "errmsgField": "errmsg",
+    "defaultErrno": 1000,
+    "validateDefaultErrno": 1001,
+    "default_module": "api",
+    "host": "125.64.17.163",
+    "weixin": {
+      "appid": "wx99644281051e1e4c",
+      "secret": "9b30b458f12ba8faeffa1a4d2a85384f",
+      "mch_id": "",
+      "partner_key": "",
+      "notify_url": ""
+    },
+    "express": {
+      "appid": "",
+      "appkey": "",
+      "request_url": "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"
+    },
+    "publicController": [
+      "index",
+      "catalog",
+      "topic",
+      "auth",
+      "goods",
+      "brand",
+      "search",
+      "region"
+    ],
+    "publicAction": [
+      "comment/list",
+      "comment/count",
+      "cart/index",
+      "cart/add",
+      "cart/checked",
+      "cart/update",
+      "cart/delete",
+      "cart/goodscount",
+      "pay/notify",
+      "article/ArticleList",
+      "article/ArticleInfo",
+      "article_advert/index"
+    ],
+    "cache": {
+      "type": "file",
+      "file": {
+        "timeout": 86400000,
+        "cachePath": "/home/fangzhiyang/spovea/project/WeiXin_miniprogram/nideshop_api/runtime/cache",
+        "pathDepth": 1,
+        "gcInterval": 86400000
+      }
+    },
+    "model": {
+      "type": "mysql",
+      "mysql": {
+        "logConnect": true,
+        "logSql": true,
+        "database": "nideshop",
+        "prefix": "nideshop_",
+        "encoding": "utf8mb4",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "user": "fangzhiyang",
+        "password": "L@vescu2021",
+        "dateStrings": true,
+        "insecureAuth": true
+      }
+    },
+    "logger": {
+      "type": "console",
+      "console": {},
+      "file": {
+        "backups": 10,
+        "absolute": true,
+        "maxLogSize": 51200,
+        "filename": "/home/fangzhiyang/spovea/project/WeiXin_miniprogram/nideshop_api/logs/app.log"
+      },
+      "dateFile": {
+        "level": "ALL",
+        "absolute": true,
+        "pattern": "-yyyy-MM-dd",
+        "alwaysIncludePattern": true,
+        "filename": "/home/fangzhiyang/spovea/project/WeiXin_miniprogram/nideshop_api/logs/app.log"
+      }
+    }
+  },
+  "common": {
+    "port": 8360,
+    "workers": 0,
+    "stickyCluster": false,
+    "startServerTimeout": 3000,
+    "reloadSignal": "SIGUSR2",
+    "processKillTimeout": 10000,
+    "jsonpCallbackField": "callback",
+    "jsonContentType": "application/json",
+    "jsonpContentType": "application/javascript",
+    "errnoField": "errno",
+    "errmsgField": "errmsg",
+    "defaultErrno": 1000,
+    "validateDefaultErrno": 1001,
+    "default_module": "api",
+    "host": "125.64.17.163",
+    "weixin": {
+      "appid": "wx99644281051e1e4c",
+      "secret": "9b30b458f12ba8faeffa1a4d2a85384f",
+      "mch_id": "",
+      "partner_key": "",
+      "notify_url": ""
+    },
+    "express": {
+      "appid": "",
+      "appkey": "",
+      "request_url": "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"
+    },
+    "cache": {
+      "type": "file",
+      "file": {
+        "timeout": 86400000,
+        "cachePath": "/home/fangzhiyang/spovea/project/WeiXin_miniprogram/nideshop_api/runtime/cache",
+        "pathDepth": 1,
+        "gcInterval": 86400000
+      }
+    },
+    "model": {
+      "type": "mysql",
+      "mysql": {
+        "logConnect": true,
+        "logSql": true,
+        "database": "nideshop",
+        "prefix": "nideshop_",
+        "encoding": "utf8mb4",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "user": "fangzhiyang",
+        "password": "L@vescu2021",
+        "dateStrings": true,
+        "insecureAuth": true
+      }
+    },
+    "logger": {
+      "type": "console",
+      "console": {},
+      "file": {
+        "backups": 10,
+        "absolute": true,
+        "maxLogSize": 51200,
+        "filename": "/home/fangzhiyang/spovea/project/WeiXin_miniprogram/nideshop_api/logs/app.log"
+      },
+      "dateFile": {
+        "level": "ALL",
+        "absolute": true,
+        "pattern": "-yyyy-MM-dd",
+        "alwaysIncludePattern": true,
+        "filename": "/home/fangzhiyang/spovea/project/WeiXin_miniprogram/nideshop_api/logs/app.log"
+      }
+    }
+  }
+}

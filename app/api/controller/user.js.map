@@ -1,0 +1,42 @@
+{
+    "version": 3,
+    "sources": [
+        "../../../src/api/controller/user.js"
+    ],
+    "names": [
+        "Base",
+        "require",
+        "fs",
+        "_",
+        "module",
+        "exports",
+        "infoAction",
+        "userInfo",
+        "model",
+        "where",
+        "id",
+        "getLoginUserId",
+        "find",
+        "password",
+        "json",
+        "saveAvatarAction",
+        "avatar",
+        "file",
+        "think",
+        "isEmpty",
+        "fail",
+        "avatarPath",
+        "RESOURCE_PATH",
+        "last",
+        "split",
+        "path",
+        "rename",
+        "res",
+        "success"
+    ],
+    "mappings": ";;AAAA,MAAMA,OAAOC,QAAQ,WAAR,CAAb;AACA,MAAMC,KAAKD,QAAQ,IAAR,CAAX;AACA,MAAME,IAAIF,QAAQ,QAAR,CAAV;;AAEAG,OAAOC,OAAP,GAAiB,cAAcL,IAAd,CAAmB;AAC5BM,YAAN,GAAmB;AAAA;;AAAA;AACjB,YAAMC,WAAW,MAAM,MAAKC,KAAL,CAAW,MAAX,EAAmBC,KAAnB,CAAyB,EAACC,IAAI,MAAKC,cAAL,EAAL,EAAzB,EAAsDC,IAAtD,EAAvB;AACA,aAAOL,SAASM,QAAhB;AACA,aAAO,MAAKC,IAAL,CAAUP,QAAV,CAAP;AAHiB;AAIlB;;AAED;;;;AAIMQ,kBAAN,GAAyB;AAAA;;AAAA;AACvB,YAAMC,SAAS,OAAKC,IAAL,CAAU,QAAV,CAAf;AACA,UAAIC,MAAMC,OAAN,CAAcH,MAAd,CAAJ,EAA2B;AACzB,eAAO,OAAKI,IAAL,CAAU,MAAV,CAAP;AACD;;AAED,YAAMC,aAAaH,MAAMI,aAAN,GAAuB,uBAAsB,OAAKX,cAAL,EAAsB,GAAnE,GAAwER,EAAEoB,IAAF,CAAOpB,EAAEqB,KAAF,CAAQR,OAAOS,IAAf,EAAqB,GAArB,CAAP,CAA3F;;AAEAvB,SAAGwB,MAAH,CAAUV,OAAOS,IAAjB,EAAuBJ,UAAvB,EAAmC,UAASM,GAAT,EAAc;AAC/C,eAAO,KAAKC,OAAL,EAAP;AACD,OAFD;AARuB;AAWxB;AAtBiC,CAApC",
+    "file": "../../../src/api/controller/user.js",
+    "sourcesContent": [
+        "const Base = require('./base.js');\r\nconst fs = require('fs');\r\nconst _ = require('lodash');\r\n\r\nmodule.exports = class extends Base {\r\n  async infoAction() {\r\n    const userInfo = await this.model('user').where({id: this.getLoginUserId()}).find();\r\n    delete userInfo.password;\r\n    return this.json(userInfo);\r\n  }\r\n\r\n  /**\r\n   * 保存用户头像\r\n   * @returns {Promise.<void>}\r\n   */\r\n  async saveAvatarAction() {\r\n    const avatar = this.file('avatar');\r\n    if (think.isEmpty(avatar)) {\r\n      return this.fail('保存失败');\r\n    }\r\n\r\n    const avatarPath = think.RESOURCE_PATH + `/static/user/avatar/${this.getLoginUserId()}.` + _.last(_.split(avatar.path, '.'));\r\n\r\n    fs.rename(avatar.path, avatarPath, function(res) {\r\n      return this.success();\r\n    });\r\n  }\r\n};\r\n"
+    ]
+}
